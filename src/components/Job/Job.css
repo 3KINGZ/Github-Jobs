@@ -79,17 +79,17 @@
     height: 30vh;
   }
 
-  .job > div:nth-of-type(2) > div {
+  /* .job > div:nth-of-type(2) > div {
     color: red;
-  }
+  } */
   .job-type {
     display: flex;
     flex-direction: column;
     padding: 10px;
   }
-  job-type-texxt {
+  /* job-type-texxt {
     color: red;
-  }
+  } */
   .job-time-location {
     display: grid;
     grid-template-rows: auto auto;
