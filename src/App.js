@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import JobDetail from "./routes/JobDetail/JobDetails";
 import HomePage from "./routes/HomePage/HomePage";
@@ -21,7 +20,7 @@ function App() {
   const [location, setLocation] = useState("");
   const [fullTime, setFullTime] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [jobsPerPage, setJobsPerPage] = useState(5);
+  const [jobsPerPage] = useState(5);
 
   function onHandleChange(e) {
     setSearch(e.target.value);
@@ -40,8 +39,6 @@ function App() {
       });
   }
 
-  // https://cors-anywhere.herokuapp.com/
-
   useEffect(() => {
     fetch("https://jobs.github.com/positions.json")
       .then((res) => res.json())
@@ -53,10 +50,9 @@ function App() {
       });
   }, []);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  console.log(jobs);
   console.log(error);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const indexOfLastPost = currentPage * jobsPerPage;
   const indexOfFirstPost = indexOfLastPost - jobsPerPage;

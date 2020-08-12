@@ -31,8 +31,6 @@ function JobDetail({ match }) {
       });
   }
 
-  console.log(job);
-
   return (
     <div className="main-container">
       <Header />
