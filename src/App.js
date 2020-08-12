@@ -27,11 +27,9 @@ function App() {
     setSearch(e.target.value);
   }
 
-  // https://cors-anywhere.herokuapp.com/
-
   function getSearchResult() {
     fetch(
-      `https://jobs.github.com/positions.json?description=${search}&full_time=${fullTime}&location=${location}`
+      `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${search}&full_time=${fullTime}&location=${location}`
     )
       .then((res) => res.json())
       .then((json) => {

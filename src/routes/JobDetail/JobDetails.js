@@ -18,10 +18,10 @@ function JobDetail({ match }) {
     // eslint-disable-next-line
   }, []);
 
-  // https://cors-anywhere.herokuapp.com/
-
   function getJob() {
-    fetch(`https://jobs.github.com/positions/${match.params.id}.json`)
+    fetch(
+      `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions/${match.params.id}.json`
+    )
       .then((res) => res.json())
       .then((json) => {
         setJob(json);
