@@ -40,7 +40,9 @@ function App() {
   }
 
   useEffect(() => {
-    fetch("https://jobs.github.com/positions.json")
+    fetch(
+      "https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json"
+    )
       .then((res) => res.json())
       .then((json) => {
         setJobs(json);
