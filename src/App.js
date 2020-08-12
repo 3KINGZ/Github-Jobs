@@ -1,25 +1,94 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import JobDetail from "./routes/JobDetail/JobDetails";
+import HomePage from "./routes/HomePage/HomePage";
+import "./App.css";
+
+export const ApiDatas = React.createContext();
+export const OnSearch = React.createContext();
+export const OnFulltime = React.createContext();
+export const OnLocation = React.createContext();
+export const GetResult = React.createContext();
+export const OnJobsPerPage = React.createContext();
+export const OnJobsPaginate = React.createContext();
+export const OnJobs = React.createContext();
 
 function App() {
+  const [jobs, setJobs] = useState([]);
+  const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
+  const [location, setLocation] = useState("");
+  const [fullTime, setFullTime] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [jobsPerPage, setJobsPerPage] = useState(5);
+
+  function onHandleChange(e) {
+    setSearch(e.target.value);
+  }
+
+  // https://cors-anywhere.herokuapp.com/
+
+  function getSearchResult() {
+    fetch(
+      `https://jobs.github.com/positions.json?description=${search}&full_time=${fullTime}&location=${location}`
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        setJobs(json);
+      })
+      .catch((e) => {
+        setError("an occurred while trying to fetch jobs");
+      });
+  }
+
+  // https://cors-anywhere.herokuapp.com/
+
+  useEffect(() => {
+    fetch("https://jobs.github.com/positions.json")
+      .then((res) => res.json())
+      .then((json) => {
+        setJobs(json);
+      })
+      .catch((e) => {
+        setError("an occurred while trying to fetch jobs");
+      });
+  }, []);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  console.log(jobs);
+  console.log(error);
+
+  const indexOfLastPost = currentPage * jobsPerPage;
+  const indexOfFirstPost = indexOfLastPost - jobsPerPage;
+  const currentPosts = jobs.slice(indexOfFirstPost, indexOfLastPost);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" exact>
+          <OnJobsPaginate.Provider value={paginate}>
+            <OnJobsPerPage.Provider value={jobsPerPage}>
+              <GetResult.Provider value={getSearchResult}>
+                <OnLocation.Provider value={setLocation}>
+                  <OnFulltime.Provider value={setFullTime}>
+                    <OnSearch.Provider value={onHandleChange}>
+                      <ApiDatas.Provider value={currentPosts}>
+                        <OnJobs.Provider value={jobs}>
+                          <HomePage />
+                        </OnJobs.Provider>
+                      </ApiDatas.Provider>
+                    </OnSearch.Provider>
+                  </OnFulltime.Provider>
+                </OnLocation.Provider>
+              </GetResult.Provider>
+            </OnJobsPerPage.Provider>
+          </OnJobsPaginate.Provider>
+        </Route>
+        <Route path="/:id" exact component={JobDetail} />
+      </Switch>
+    </Router>
   );
 }
 

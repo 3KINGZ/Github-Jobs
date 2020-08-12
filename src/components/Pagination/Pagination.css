@@ -1,0 +1,22 @@
+nav {
+  margin: 4% auto;
+  display: block;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  margin: 4% auto;
+}
+
+ul > li {
+  display: inline-block;
+  border: 1px solid #4b5788;
+  padding: 5px;
+  margin-right: 1.2%;
+  border-radius: 2px;
+}
+
+ul > li:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,74 @@
+.jb-icon {
+  width: 20px;
+}
+
+.job-type-text {
+  border: 1px solid #4b5788;
+  font-size: 0.4em;
+  font-weight: lighter;
+  padding: 5px;
+}
+
+.company-image {
+  width: 150px;
+  border-radius: 10px;
+}
+
+.flexxx {
+  display: flex;
+  flex-direction: row;
+}
+
+.flexxx > img {
+  margin-right: 10px;
+}
+
+.flexxx > div:nth-of-type(1) {
+  margin-right: 8px;
+}
+
+.space-up {
+  margin-top: 3%;
+}
+
+.fade {
+  font-weight: lighter;
+}
+
+.main-content-container-details {
+  display: grid;
+  grid-template-columns: 30% auto;
+  margin-top: 1.5%;
+  /* grid-gap: 50px; */
+}
+
+.main-content-container-details > div:nth-of-type(1) {
+  grid-column: 1/1;
+}
+
+.bold {
+  font-weight: bolder;
+}
+
+.bold > img {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.description {
+  margin-top: 3%;
+}
+
+.how-to-apply {
+  max-width: 50%;
+}
+
+@media only screen and (max-width: 768px) {
+  .main-content-container-details {
+    display: flex;
+    flex-direction: column;
+  }
+  .main-content-container-details > div {
+    width: 100%;
+  }
+}
